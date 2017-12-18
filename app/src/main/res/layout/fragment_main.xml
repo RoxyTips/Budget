@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tips.rox.bugdet.fragments.MainActivityFragment"
+    tools:showIn="@layout/activity_main">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart_by_categorie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/fab_add"
+        android:layout_alignParentRight="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            fab:fab_size="mini"
+            fab:fab_label="Ajouter Catégorie"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fabAddDepense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            fab:fab_size="mini"
+            fab:fab_label="Ajouter dépense"/>
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+</android.support.constraint.ConstraintLayout>
