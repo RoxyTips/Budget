@@ -4,4 +4,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Label de catégorie</string>
+    <string name="depense_label">Label de dépense</string>
+    <string name="depense_montant">Montant de la dépense</string>
+    <string name="depense_cat">Catégorie de dépense</string>
 </resources>
