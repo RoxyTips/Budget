@@ -3,9 +3,13 @@ package com.tips.rox.bugdet
 import android.app.Application
 import android.app.FragmentManager
 import android.arch.persistence.room.Room
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.database.Cursor
 import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -73,10 +77,15 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
+        if(item.itemId == R.id.action_settings){
+            val intent = Intent (this, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+        /*return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
-        }
+        }*/
     }
 
     fun initializeData(){
@@ -97,10 +106,17 @@ class MainActivity : AppCompatActivity() {
         //val lastOfMonth = localdate.with(TemporalAdjusters.lastDayOfMonth())
         //val timestamp = Timestamp(localdate.getLong())
         //val timeEnd : Timestamp = lastOfMonth
+        val sharedPref : SharedPreferences
+        sharedPref = getSharedPreferences(getString(R.string.preference_budget_total), Context.MODE_PRIVATE)
+        val budget : Int = sharedPref.getInt(getString(R.string.preference_budget_total_key), 0)
         val depense = db!!.depenseDao().getSumDepenseByMonth(firstDayOfMonth, today)
-        val restant: Int = 2400 - depense
+        val restant: Int = budget - depense
 
-        entries.add(PieEntry(restant.toFloat(), "Restant"))
+        if(restant < 0){
+            entries.add(PieEntry("0".toFloat(), "Restant " + restant.toFloat().toString()))
+        }else{
+            entries.add(PieEntry(restant.toFloat(), "Restant"))
+        }
         entries.add(PieEntry(depense.toFloat(), "Dépenses"))
 
 

@@ -7,4 +7,7 @@
     <string name="depense_label">Label de dépense</string>
     <string name="depense_montant">Montant de la dépense</string>
     <string name="depense_cat">Catégorie de dépense</string>
+    <string name="preference_budget_total_key">budget_key</string>
+    <string name="preference_budget_total">Budget total par mois</string>
+    <string name="preference_budget_total_summ">Veuillez choisir le budget mensuel que vous ne voulez pas dépasser</string>
 </resources>
