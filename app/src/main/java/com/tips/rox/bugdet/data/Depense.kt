@@ -12,7 +12,7 @@ import java.util.*
                             parentColumns = arrayOf("_idCategorie"),
                             childColumns = arrayOf("idCategorie"),
                             onDelete = ForeignKey.CASCADE)),
-        indices = arrayOf(Index(value = "idCategorie", unique = true)))
+        indices = arrayOf(Index(value = "_idDepense", unique = true)))
 @TypeConverters(Converters::class)
 class Depense {
     @PrimaryKey(autoGenerate = true)
@@ -22,8 +22,15 @@ class Depense {
     @ColumnInfo(name = "libelleDepense")
     var _libelleDepense : String = "";
     @ColumnInfo(name = "dateDepenses")
-    var _dateDepense : Date = Date() ;
+    @TypeConverters(Converters::class)
+    var _dateDepense : Date = Date();
     @ColumnInfo(name = "idCategorie")
     var _idCategorie : Int = 0;
 
+    fun Depense(prixDepense: Double, libelleDepense : String, dateDepense : Date, idCategorie: Int){
+        this._dateDepense = dateDepense
+        this._idCategorie = idCategorie
+        this._libelleDepense = libelleDepense
+        this._prixDepense = prixDepense
+    }
 }

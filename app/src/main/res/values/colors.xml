@@ -3,5 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="blanc">#FFFFFF</color>
+    <color name="blanc">#ffffff</color>
+    <color name="vert">#31de31</color>
+    <color name="rouge">#e42020</color>
 </resources>

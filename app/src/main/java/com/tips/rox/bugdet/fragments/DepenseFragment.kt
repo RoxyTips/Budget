@@ -7,8 +7,20 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
+import com.tips.rox.bugdet.BudgetApplication
 
 import com.tips.rox.bugdet.R
+import com.tips.rox.bugdet.adapter.CategorieSpinnerAdapter
+import com.tips.rox.bugdet.data.Categorie
+import com.tips.rox.bugdet.data.Depense
+import kotlinx.android.synthetic.main.fragment_depense.*
+import java.time.LocalDateTime
+import java.util.*
+import java.time.ZoneId.systemDefault
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -18,26 +30,55 @@ import com.tips.rox.bugdet.R
  * Use the [DepenseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DepenseFragment : Fragment() {
+class DepenseFragment : Fragment(),AdapterView.OnItemSelectedListener {
+
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
 
+
     private var mListener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (arguments != null) {
             mParam1 = arguments.getString(ARG_PARAM1)
             mParam2 = arguments.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
+        //var catNames : ArrayList<String> = BudgetApplication.db!!.depenseDao().getCategorieNames()
+        //val arrayAdapter = ArrayAdapter(activity.applicationContext, R.layout.support_simple_spinner_dropdown_item, cat)
+        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
         return inflater!!.inflate(R.layout.fragment_depense, container, false)
+
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var cat : List<Categorie> = BudgetApplication.db!!.depenseDao().getCategories()
+        val arrayAdapter = CategorieSpinnerAdapter(activity.applicationContext, R.layout.adapter_spinner_categories, cat)
+        spi_categorie_depense!!.adapter = arrayAdapter
+
+        save_depense.setOnClickListener{
+            var depense = Depense()
+            depense._libelleDepense = et_label_depense.text.toString()
+            depense._prixDepense = et_montant_depense.text.toString().toDouble()
+            depense._idCategorie = (spi_categorie_depense.getItemAtPosition(spi_categorie_depense.selectedItemPosition.toString().toInt()) as Categorie)._idCategorie
+            depense._dateDepense = Date()
+            BudgetApplication.db!!.depenseDao().saveDepense(depense)
+            Toast.makeText(activity.applicationContext, "Dépense enregistrée", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -52,8 +93,17 @@ class DepenseFragment : Fragment() {
         if (context is OnFragmentInteractionListener) {
             mListener = context
         } else {
+
             //throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
         }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDetach() {

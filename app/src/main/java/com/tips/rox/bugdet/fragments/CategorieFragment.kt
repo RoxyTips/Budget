@@ -8,7 +8,9 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.github.clans.fab.FloatingActionButton
+import com.tips.rox.bugdet.BudgetApplication
 
 import com.tips.rox.bugdet.R
 import com.tips.rox.bugdet.data.Categorie
@@ -48,7 +50,8 @@ class CategorieFragment : Fragment() {
             var cat= Categorie()
             cat._libelleCategorie = et_label_categorie.text.toString();
             cat._couleurCategorie = Integer.toHexString(color_picker_view.selectedColor);
-
+            BudgetApplication.db!!.depenseDao().saveCategorie(cat);
+            Toast.makeText(activity.applicationContext, "Catégorie enregistrée", Toast.LENGTH_SHORT).show()
             //et_label_categorie.text
         }
     }
