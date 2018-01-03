@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_input_add"
             fab:fab_size="mini"
-            fab:fab_label="Ajouter Catégorie"
+            fab:fab_label="Ajouter catégorie"
             app:fab_colorNormal="@color/colorPrimary"/>
 
         <com.github.clans.fab.FloatingActionButton
